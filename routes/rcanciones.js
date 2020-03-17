@@ -19,5 +19,9 @@ module.exports = function(app) {
     });
     app.get('/canciones/:genero/:id', function(req, res) {
         let respuesta = 'id: '+ req.params.id + '<br>'+ 'Género: '+ req.params.genero;
-        res.send(respuesta);});
+        res.send(respuesta);
+    });
+    app.post("/cancion", function(req, res) {
+        res.send("Canción agregada: " + req.body.nombre + "<br>" + " género: " + req.body.genero + "<br>" + " precio: " + req.body.precio);
+    });
 };
