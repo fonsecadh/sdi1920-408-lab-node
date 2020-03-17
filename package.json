@@ -1,5 +1,8 @@
 {
   "name": "tienda_musica",
   "version": "1.0.0",
-  "description": "Tienda de música"
+  "description": "Tienda de música",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
 }
