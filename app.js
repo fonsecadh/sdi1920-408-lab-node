@@ -36,6 +36,7 @@ routerUsuarioSession.use(function(req, res, next) {
 // Aplicar routerUsuarioSession
 app.use("/canciones/agregar", routerUsuarioSession);
 app.use("/publicaciones", routerUsuarioSession);
+app.use("/comentarios/:cancion_id", routerUsuarioSession);
 
 // routerAudios
 let routerAudios = express.Router(); 
@@ -69,6 +70,7 @@ app.set('crypto', crypto);
 require("./routes/rusuarios.js")(app, swig, gestorBD);
 require("./routes/rcanciones.js")(app, swig, gestorBD);
 require("./routes/rautores.js")(app, swig);
+require("./routes/rcomentarios.js")(app, swig, gestorBD);
 
 // Lanzar el servidor
 app.listen(app.get('port'), function() {
