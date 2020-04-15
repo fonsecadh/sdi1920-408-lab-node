@@ -29,7 +29,7 @@ module.exports = function(app,gestorBD) {
     app.delete("/api/cancion/:id", function(req,res) { 
         var criterio = {"_id": gestorBD.mongo.ObjectID(req.params.id)}
         let cancionId = gestorBD.mongo.ObjectID(req.params.id);
-        let usuario = req.session.usuario;
+        let usuario = res.usuario;
         puedeModificarBorrarCancion(usuario, cancionId, function(borrable) {
             if (borrable) {
                 gestorBD.eliminarCancion(criterio, function(canciones) { 
@@ -55,7 +55,8 @@ module.exports = function(app,gestorBD) {
         var cancion = {
             nombre : req.body.nombre,
             genero : req.body.genero,
-            precio : req.body.precio
+            precio : req.body.precio,
+            autor : res.usuario
         }
         // ¿Validar nombre, genero, precio?
         if (cancion.nombre == null || cancion.nombre == "" || cancion.genero == null || 
@@ -110,7 +111,7 @@ module.exports = function(app,gestorBD) {
             });
         }
         let cancionId = gestorBD.mongo.ObjectID(req.params.id);
-        let usuario = req.session.usuario;
+        let usuario = res.usuario;
         puedeModificarBorrarCancion(usuario, cancionId, function(modificable) {
             if (modificable) {
                 gestorBD.modificarCancion(criterio, cancion, function(result) { 
@@ -166,7 +167,7 @@ module.exports = function(app,gestorBD) {
             { "autor": usuario } 
         ] };
         gestorBD.obtenerCanciones(criterio_cancion_autor, function(canciones) {
-            if (canciones == null || canciones.length > 0) {
+            if (canciones == null || canciones.length <= 0) {
                 functionCallback(false);
             } else {
                 functionCallback(true);
